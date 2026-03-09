@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.agentotc.mapper.AgentMapper">
+    <insert id="insert" parameterType="com.agentotc.model.Agent">
+        INSERT INTO agent (agent_name, wallet_address, encrypted_private_key, token, status, profit_address, created_at, updated_at)
+        VALUES (#{agentName}, #{walletAddress}, #{encryptedPrivateKey}, #{token}, #{status}, #{profitAddress}, #{createdAt}, #{updatedAt})
+    </insert>
+    
+    <select id="selectById" parameterType="java.lang.Long" resultType="com.agentotc.model.Agent">
+        SELECT * FROM agent WHERE id = #{id}
+    </select>
+    
+    <select id="selectByAgentName" parameterType="java.lang.String" resultType="com.agentotc.model.Agent">
+        SELECT * FROM agent WHERE agent_name = #{agentName}
+    </select>
+    
+    <select id="selectByToken" parameterType="java.lang.String" resultType="com.agentotc.model.Agent">
+        SELECT * FROM agent WHERE token = #{token}
+    </select>
+    
+    <update id="updateStatus" parameterType="com.agentotc.model.Agent">
+        UPDATE agent SET status = #{status}, updated_at = #{updatedAt} WHERE id = #{id}
+    </update>
+    
+    <update id="updateToken" parameterType="com.agentotc.model.Agent">
+        UPDATE agent SET token = #{token}, updated_at = #{updatedAt} WHERE id = #{id}
+    </update>
+    
+    <select id="selectAll" resultType="com.agentotc.model.Agent">
+        SELECT * FROM agent
+    </select>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.agentotc.mapper.TransactionRecordMapper">
+    <insert id="insert" parameterType="com.agentotc.model.TransactionRecord">
+        INSERT INTO transaction_record (transaction_id, agent_id, type, token_symbol, amount, price, total_value, status, timestamp)
+        VALUES (#{transactionId}, #{agentId}, #{type}, #{tokenSymbol}, #{amount}, #{price}, #{totalValue}, #{status}, #{timestamp})
+    </insert>
+    
+    <select id="selectById" parameterType="java.lang.Long" resultType="com.agentotc.model.TransactionRecord">
+        SELECT * FROM transaction_record WHERE id = #{id}
+    </select>
+    
+    <select id="selectByTransactionId" parameterType="java.lang.String" resultType="com.agentotc.model.TransactionRecord">
+        SELECT * FROM transaction_record WHERE transaction_id = #{transactionId}
+    </select>
+    
+    <select id="selectByAgentId" parameterType="java.lang.Long" resultType="com.agentotc.model.TransactionRecord">
+        SELECT * FROM transaction_record WHERE agent_id = #{agentId}
+    </select>
+    
+    <select id="selectByType" parameterType="java.lang.String" resultType="com.agentotc.model.TransactionRecord">
+        SELECT * FROM transaction_record WHERE type = #{type}
+    </select>
+    
+    <select id="selectByStatus" parameterType="java.lang.String" resultType="com.agentotc.model.TransactionRecord">
+        SELECT * FROM transaction_record WHERE status = #{status}
+    </select>
+    
+    <select id="selectAll" resultType="com.agentotc.model.TransactionRecord">
+        SELECT * FROM transaction_record ORDER BY timestamp DESC
+    </select>
+</mapper>

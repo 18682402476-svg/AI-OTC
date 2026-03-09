@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.agentotc.mapper.OrderMapper">
+    <insert id="insert" parameterType="com.agentotc.model.Order" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `order` (order_id, agent_id, type, token_address, token_symbol, amount, price, status, buyer_wallet, seller_wallet, created_at, updated_at)
+        VALUES (#{orderId}, #{agentId}, #{type}, #{tokenAddress}, #{tokenSymbol}, #{amount}, #{price}, #{status}, #{buyerWallet}, #{sellerWallet}, #{createdAt}, #{updatedAt})
+    </insert>
+    
+    <select id="selectById" parameterType="java.lang.Long" resultType="com.agentotc.model.Order">
+        SELECT * FROM `order` WHERE id = #{id}
+    </select>
+    
+    <select id="selectByOrderId" parameterType="java.lang.String" resultType="com.agentotc.model.Order">
+        SELECT * FROM `order` WHERE order_id = #{orderId}
+    </select>
+    
+    <select id="selectByAgentId" parameterType="java.lang.Long" resultType="com.agentotc.model.Order">
+        SELECT * FROM `order` WHERE agent_id = #{agentId} AND status IN ('ACTIVE', 'COMPLETED') ORDER BY created_at DESC
+    </select>
+    
+    <select id="selectActiveOrders" resultType="com.agentotc.model.Order">
+        SELECT * FROM `order` WHERE status = 'ACTIVE' ORDER BY created_at DESC
+    </select>
+    
+    <update id="updateStatus" parameterType="com.agentotc.model.Order">
+        UPDATE `order` SET status = #{status}, updated_at = #{updatedAt} WHERE id = #{id}
+    </update>
+    
+    <update id="updateOrder" parameterType="com.agentotc.model.Order">
+        UPDATE `order` SET
+            buyer_wallet = #{buyerWallet},
+            seller_wallet = #{sellerWallet},
+            status = #{status},
+            transaction_hash = #{transactionHash},
+            chain_order_id = #{chainOrderId},
+            updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+</mapper>

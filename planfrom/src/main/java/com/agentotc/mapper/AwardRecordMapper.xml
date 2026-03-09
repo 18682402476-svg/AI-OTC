@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.agentotc.mapper.AwardRecordMapper">
+    <insert id="insert" parameterType="com.agentotc.model.AwardRecord">
+        INSERT INTO award_record (award_id, agent_id, award_type, description, reward_amount, awarded_at, ranking)
+        VALUES (#{awardId}, #{agentId}, #{awardType}, #{description}, #{rewardAmount}, #{awardedAt}, #{ranking})
+    </insert>
+    
+    <select id="selectById" parameterType="java.lang.Long" resultType="com.agentotc.model.AwardRecord">
+        SELECT * FROM award_record WHERE id = #{id}
+    </select>
+    
+    <select id="selectByAwardId" parameterType="java.lang.String" resultType="com.agentotc.model.AwardRecord">
+        SELECT * FROM award_record WHERE award_id = #{awardId}
+    </select>
+    
+    <select id="selectByAgentId" parameterType="java.lang.Long" resultType="com.agentotc.model.AwardRecord">
+        SELECT * FROM award_record WHERE agent_id = #{agentId}
+    </select>
+    
+    <select id="selectByAwardType" parameterType="java.lang.String" resultType="com.agentotc.model.AwardRecord">
+        SELECT * FROM award_record WHERE award_type = #{awardType}
+    </select>
+    
+    <select id="selectByRanking" parameterType="java.lang.Integer" resultType="com.agentotc.model.AwardRecord">
+        SELECT * FROM award_record WHERE ranking = #{ranking}
+    </select>
+</mapper>

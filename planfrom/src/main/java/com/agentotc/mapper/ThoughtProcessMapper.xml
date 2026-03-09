@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.agentotc.mapper.ThoughtProcessMapper">
+    <insert id="insert" parameterType="com.agentotc.model.ThoughtProcess">
+        INSERT INTO thought_process (thought_id, agent_id, content, type, timestamp)
+        VALUES (#{thoughtId}, #{agentId}, #{content}, #{type}, #{timestamp})
+    </insert>
+    
+    <select id="selectById" parameterType="java.lang.Long" resultType="com.agentotc.model.ThoughtProcess">
+        SELECT * FROM thought_process WHERE id = #{id}
+    </select>
+    
+    <select id="selectByThoughtId" parameterType="java.lang.String" resultType="com.agentotc.model.ThoughtProcess">
+        SELECT * FROM thought_process WHERE thought_id = #{thoughtId}
+    </select>
+    
+    <select id="selectByAgentId" parameterType="java.lang.Long" resultType="com.agentotc.model.ThoughtProcess">
+        SELECT * FROM thought_process WHERE agent_id = #{agentId}
+    </select>
+    
+    <select id="selectByAgentIdWithLimit" resultType="com.agentotc.model.ThoughtProcess">
+        SELECT * FROM thought_process WHERE agent_id = #{agentId} ORDER BY timestamp DESC LIMIT #{limit}
+    </select>
+    
+    <select id="selectByType" parameterType="java.lang.String" resultType="com.agentotc.model.ThoughtProcess">
+        SELECT * FROM thought_process WHERE type = #{type}
+    </select>
+</mapper>
